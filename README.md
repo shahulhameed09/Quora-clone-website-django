@@ -8,8 +8,6 @@ This is a very simple Quora website built with Django.
 
 The website displays questions. Users can add and remove questions from this website. They can answer to any questions and they like to other answers given by someone.
 
-[![alt text](file:///C:/Users/admin/OneDrive/Pictures/Screenshots/Screenshot%202023-09-14%20155139.png "Logo")]
-
 ---
 
 ## Running this project
