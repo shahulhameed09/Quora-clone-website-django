@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="post" name="myform" class="post que">
+  <h1>Answer the Question</h1>
+  {% csrf_token %}
+  {{ form.answer_text }}
+  <button type="submit" class="btn btns btn-dark">Submit</button>
+</form>
+
+<style>
+  .que {
+    background: #65a8f9;
+    padding: 2rem;
+    width: 50%;
+    border-radius: 14px;
+    text-align: center;
+    margin-top: 6rem;
+  }
+
+  .que textarea {
+    margin: 1rem 0 1rem 0;
+    padding: 5px;
+    border-radius: 14px;
+    border: none;
+    resize: none;
+  }
+
+  .btns {
+    border-radius: 14px;
+  }
+
+</style>
+
+<script>
+  document.getElementsByTagName("textarea")[0].placeholder = "Type Something..."
+</script>
+
+{% endblock %}

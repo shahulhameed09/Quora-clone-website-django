@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <h1 class="text-center">{{questions.question_text}}</h1>
+    {% if questions.created_by.first_name == "" %}
+    <p class="text-center">Posted by: {{ questions.created_by.username }}</p>
+    {% else %}
+    <p class="text-center">Posted by: {{questions.created_by.first_name}} {{questions.created_by.last_name}}</p>
+    {% endif %}
+</div>
+
+<div class="container reply" id="reply">
+    {% for answer in questions.answer_set.all reversed %}
+    <p class="mb-1 big">{{ answer.answer_text }}</p>
+    {% if answer.created_by.first_name == "" %}
+    <p class="mb-1 sm">Posted by: {{ answer.created_by.username }}</p>
+    {% else %}
+    <p class="mb-1 sm">Posted by: {{ answer.created_by.first_name }} {{ answer.created_by.last_name }}</p>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <div class="likes">
+        {% if answer.question.created_by == request.user %}
+        <a href="/delete_answer/{{answer.id}}" class="btn btn-sm btn-danger">Delete Reply</a>
+        {% endif %}
+        <form method="post" class="ms-2">
+            {% csrf_token %}
+            <input type="text" name="ans_id" value="{{answer.id}}" hidden>
+            {% if request.user in answer.likes.all %}
+            <button type="submit" name="like" value="unlike" class="btn btn-sm">
+                <img class="imgs" src="{% static 'img/dislike.png' %}" alt="">
+            </button>
+            {% else %}
+            <button type="submit" name="like" value="like" class="btn btn-sm">
+                <img class="imgs" src="{% static 'img/like.png' %}" alt="">
+            </button>
+            {% endif %}
+        </form>
+        {% endif %}
+
+        {% if answer.likes.count == 0 %}
+        <p class="sm mb-0">No likes</p>
+        {% elif answer.likes.count == 1 %}
+        <p class="sm mb-0">{{answer.likes.count}} Like</p>
+        {% else %}
+        <p class="sm mb-0">{{answer.likes.count}} Likes</p>
+        {% endif %}
+    </div>
+    <hr>
+    {% endfor %}
+
+</div>
+
+<style>
+    .big {
+        font-size: large;
+    }
+
+    .imgs {
+        height: 1.9rem;
+        width: 1.9rem;
+        background: #d7d5d5;
+        padding: 1px;
+        border-radius: 50%;
+    }
+
+    .sm {
+        font-size: small;
+    }
+
+    .likes {
+        display: flex;
+        align-items: baseline;
+        margin-top: .6rem;
+    }
+    .reply{
+        width: 70%;
+        margin: auto !important;
+        margin-bottom: 1rem !important;
+        margin-top: 2rem !important;
+    }
+    .sms {
+        font-size: medium;
+    }
+</style>
+
+{% endblock content %}

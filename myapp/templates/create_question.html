@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="post" class="post que">
+
+  <h1>Create a Question</h1>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btns btn-dark">Submit</button>
+</form>
+
+<style>
+  .que{
+      background: #65a8f9;
+      padding: 2rem;
+      width: 50%;
+    border-radius: 14px;
+    text-align: center;
+    margin-top: 11rem;
+  }
+  .que input{
+    width: 90%;
+    margin-top: 1rem;
+    padding: 5px;
+    border-radius: 14px;
+    border: none;
+  }
+  .que label{
+    display: none;
+  }
+  .btns{
+    border-radius: 14px;
+  }
+</style>
+
+<script>
+  document.getElementsByTagName("input")[1].placeholder = "Ask Something..."
+</script>
+
+{% endblock %}

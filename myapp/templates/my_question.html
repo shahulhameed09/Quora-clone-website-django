@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<hr>
+<h2 class="text-center">My Questions</h2>
+<hr class="mb-5">
+{% for question in questions %}
+<div class="main_div">
+  <h3>{{ question.question_text }}</h3>
+  {% if question.created_by.first_name == "" %}
+  <p>Posted by: {{ question.created_by.username }}</p>
+  {% else %}
+  <p>Posted by: {{ question.created_by.first_name }} {{ question.created_by.last_name }}</p>
+  {% endif %}
+  {% if user.is_authenticated %}
+  <a href="/delete_question/{{question.id}}" class="btn btn-sm btn-danger me-2">Delete Question</a>
+  {% endif %}
+
+  {% if question.answer_set.all.count == 0 %}
+  <a class="view">No Answers</a>
+  {% elif question.answer_set.all.count == 1 %}
+  <a href="/view/{{question.id}}" class="view">{{question.answer_set.all.count}} Answer</a>
+  {% else %}
+  <a href="/view/{{question.id}}" class="view">{{question.answer_set.all.count}} Answers</a>
+  {% endif %}
+
+  <hr>
+</div>
+{% empty %}
+<p>No questions yet.</p>
+{% endfor %}
+
+
+<style>
+  .main_div {
+    padding: 2rem;
+    background: #000;
+    margin: 0 3rem 1rem 3rem;
+    color: aliceblue;
+    border-radius: 2rem;
+  }
+  .view{
+    color: rgb(154, 190, 190);
+    transition: 1s;
+  }
+  .view:hover{
+    color: rgb(232, 241, 249);
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .btns {
+    border-radius: 1rem;
+  }
+
+  .btnss {
+    border-radius: 9px;
+  }
+</style>
+
+<script src="{% static 'scripts.js' %}"></script>
+
+
+{% endblock %}

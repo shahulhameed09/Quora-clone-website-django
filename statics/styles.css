@@ -1,0 +1,34 @@
+body{
+    background: #d7dfeb !important;
+}
+
+html::-webkit-scrollbar{
+    width: .8rem;
+    background: #3b3a3a;
+}
+
+html::-webkit-scrollbar-thumb{
+    background:#ba8242;
+    border-radius: 9px;
+}
+
+.view{
+    cursor: pointer;
+    margin-top: 1rem;
+    color: rgb(114, 114, 234);
+    text-decoration: none;
+}
+
+.post{
+    width: 25%;
+    margin: auto;
+    display: grid;
+}
+
+.reply{
+    background: #000;
+    color: #fff;
+    padding: 2rem !important;
+    border-radius: 14px;
+    margin-top: 3rem;
+}
