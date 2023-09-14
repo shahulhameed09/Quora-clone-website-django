@@ -1,5 +1,3 @@
-### *** Deprecation warning ***
-
 # Quora-clone-website-django
 
 This is a very simple Quora website built with Django.
